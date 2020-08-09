@@ -64,6 +64,33 @@ let getCourses = (args) => {
   }
 }
 
+let updateCourseTopic = ({ id, topic }) => {
+  coursesData.map(course => {
+    if (course.id === id) {
+      course.topic = topic;
+      return course;
+    }
+  });
+  return coursesData.filter(course => course.id === id)[0];
+}
+
+// Root resolver
+let root = {
+  course: getCourse,
+  courses: getCourses,
+  updateCourseTopic
+};
+
+// Create an Express server and GraphQL endpoint
+
+let app = express();
+app.use('/graphql', express_graphql({
+  schema,
+  rootValue: root,
+  graphiql: true
+}));
+
+
 app.listen(4000, () => {
   console.log('Listening on port 4000');
 });
