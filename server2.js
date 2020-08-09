@@ -48,6 +48,22 @@ let coursesData = [
     url: 'https://codingthesmartway.com/courses/understand-javascript/'
   }
 ]
+let getCourse = (args) => {
+  let id = args.id;
+  return coursesData.filter(course => {
+    return course.id === id;
+  })[0];
+}
+
+let getCourses = (args) => {
+  if (args.topic) {
+    let topic = args.topic;
+    return coursesData.filter(course => course.topic === topic);
+  } else {
+    return coursesData;
+  }
+}
+
 app.listen(4000, () => {
   console.log('Listening on port 4000');
 });
